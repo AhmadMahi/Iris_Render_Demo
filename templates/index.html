@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Iris Species Predictor</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+      body {
+          background-color: #f8f9fa;
+      }
+      .container {
+          max-width: 600px;
+          margin-top: 50px;
+          padding: 20px;
+          background-color: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 class="text-center mb-4">Iris Species Predictor</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label for="sepal_length" class="form-label">Sepal Length</label>
+      <input type="number" step="any" class="form-control" id="sepal_length" name="sepal_length" placeholder="e.g., 5.1" required>
+    </div>
+    <div class="mb-3">
+      <label for="sepal_width" class="form-label">Sepal Width</label>
+      <input type="number" step="any" class="form-control" id="sepal_width" name="sepal_width" placeholder="e.g., 3.5" required>
+    </div>
+    <div class="mb-3">
+      <label for="petal_length" class="form-label">Petal Length</label>
+      <input type="number" step="any" class="form-control" id="petal_length" name="petal_length" placeholder="e.g., 1.4" required>
+    </div>
+    <div class="mb-3">
+      <label for="petal_width" class="form-label">Petal Width</label>
+      <input type="number" step="any" class="form-control" id="petal_width" name="petal_width" placeholder="e.g., 0.2" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Predict Species</button>
+  </form>
+  {% if prediction %}
+  <div class="alert alert-info mt-4" role="alert">
+    Prediction: <strong>{{ prediction }}</strong>
+  </div>
+  {% endif %}
+</div>
+</body>
+</html>
