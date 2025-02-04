@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,5 +26,127 @@
     {% if prediction_text %}
     <p class="result">{{ prediction_text }}</p>
     {% endif %}
+</body>
+</html>
+
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Flower Prediction</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Main Container */
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        /* Title */
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 8px auto;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.2);
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        /* Result Styling */
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745;
+            margin-top: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 Iris Flower Prediction 🌿</h1>
+        <p>Enter the flower properties to predict its species.</p>
+
+        <form action="/predict" method="post">
+            <input type="text" name="sepal_length" placeholder="Sepal Length (cm)" required>
+            <input type="text" name="sepal_width" placeholder="Sepal Width (cm)" required>
+            <input type="text" name="petal_length" placeholder="Petal Length (cm)" required>
+            <input type="text" name="petal_width" placeholder="Petal Width (cm)" required>
+            <button type="submit">🌼 Predict</button>
+        </form>
+
+        {% if prediction_text %}
+        <p class="result">{{ prediction_text }}</p>
+        {% endif %}
+
+        <div class="footer">Powered by Machine Learning 🌍</div>
+    </div>
 </body>
 </html>
