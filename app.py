@@ -1,33 +1,41 @@
-from flask import Flask, request, render_template
+import os
+import pickle
 import numpy as np
-from sklearn.datasets import load_iris
-from sklearn.linear_model import LogisticRegression
+from flask import Flask, request, render_template
 
+# Load trained model
+with open("model.pkl", "rb") as f:
+    model = pickle.load(f)
+
+# Initialize Flask app
 app = Flask(__name__)
 
-# Train the logistic regression model on the Iris dataset
-iris = load_iris()
-X = iris.data
-y = iris.target
-model = LogisticRegression(max_iter=200)
-model.fit(X, y)
-species = iris.target_names
+# Route for home page
+@app.route("/")
+def home():
+    return render_template("index.html")
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    prediction = None
-    if request.method == "POST":
-        try:
-            sepal_length = float(request.form["sepal_length"])
-            sepal_width = float(request.form["sepal_width"])
-            petal_length = float(request.form["petal_length"])
-            petal_width = float(request.form["petal_width"])
-            features = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
-            pred = model.predict(features)[0]
-            prediction = species[pred]
-        except Exception as e:
-            prediction = "Error in input values. Please check your inputs."
-    return render_template("index.html", prediction=prediction)
+# Route for prediction
+@app.route("/predict", methods=["POST"])
+def predict():
+    try:
+        # Get input values from form
+        input_data = [float(x) for x in request.form.values()]
+        input_array = np.array(input_data).reshape(1, -1)
 
+        # Make prediction
+        prediction = model.predict(input_array)[0]
+
+        # Convert prediction to species name
+        species = ["Setosa", "Versicolor", "Virginica"]
+        result = species[prediction]
+
+        return render_template("index.html", prediction_text=f"Predicted Species: {result}")
+
+    except Exception as e:
+        return render_template("index.html", prediction_text=f"Error: {str(e)}")
+
+# Run the app
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render assigns a dynamic port
+    app.run(host="0.0.0.0", port=port)
